@@ -1,5 +1,4 @@
-﻿
-module Networking.IpAddress
+﻿module Networking.IpAddress
 
 open System.Net
 open System.Net.Http

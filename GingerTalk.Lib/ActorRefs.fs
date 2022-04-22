@@ -5,9 +5,6 @@ open ActorSystem
 open ClientState
 open Message
 
-
-
-
 ///Handles cluster pub-sub dispatch of subscriptions and messages
 let chatNode: IActorRef<ChatCommand> =
     typed //retype actor reference
@@ -23,8 +20,7 @@ let unsubscribe topic =
     chatNode <! (Subscription <| Unsub topic)
 
 let sendInput msg =
-    let mailbox: IActorRef<Msg> =
-        retype chatNode
+    let mailbox: IActorRef<Msg> = retype chatNode
 
     match msg with
     | None -> ()

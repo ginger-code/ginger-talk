@@ -1,13 +1,8 @@
 ﻿module Networking.PortFowarding
 
 open System
-open System.Net
-open System.Net.Http
-open System.Net.Sockets
 open System.Net.NetworkInformation
-open FSharpx.Result
 open Mono.Nat
-open FSharp.Json
 open Spectre.Console
 
 
@@ -33,10 +28,7 @@ let private retrieveGateway () =
         NatUtility.DeviceFound.Add(fun e -> devices <- e.Device :: devices)
 
         async {
-            do
-                NatUtility.StartDiscovery [|
-                    NatProtocol.Upnp
-                |]
+            do NatUtility.StartDiscovery [| NatProtocol.Upnp |]
 
             do! Async.Sleep(TimeSpan.FromMilliseconds 500)
             do NatUtility.StopDiscovery()
@@ -69,10 +61,11 @@ let private closePort (device: INatDevice) (portMapping: Mapping) () =
 
 
 let forwardPort (internalPort: int) (externalPort: int) =
-    AnsiConsole.MarkupLine $"[chartreuse1]Attempting to automatically forward port [green]{internalPort}[/] to [green]{externalPort}[/][/]"
+    AnsiConsole.MarkupLine
+        $"[chartreuse1]Attempting to automatically forward port [green]{internalPort}[/] to [green]{externalPort}[/][/]"
+
     let device = retrieveGateway ()
 
-    let portMapping =
-        mapPort internalPort externalPort device
+    let portMapping = mapPort internalPort externalPort device
     AnsiConsole.MarkupLine $"[green]Port forwarded successfully![/]"
     closePort device portMapping

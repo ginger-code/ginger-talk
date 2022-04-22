@@ -10,6 +10,7 @@ subscribe <| Topic "synthesizers"
 
 sendInput
 <| Some(Msg.ChangeTopic(Topic "general"))
+
 sendInput
 <| Some(Msg.UsernameChanged(User "Sir Verr"))
 

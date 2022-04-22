@@ -17,13 +17,10 @@ let private sendMessage: Async<unit> =
             else
                 let input = Console.ReadLine()
 
-                let msg =
-                    ClientState.parseMsg ActorRefs.subscribe ActorRefs.unsubscribe input
+                let msg = ClientState.parseMsg ActorRefs.subscribe ActorRefs.unsubscribe input
 
                 ActorRefs.sendInput msg
                 return! loop ()
-
-
         }
 
     loop ()
@@ -47,9 +44,9 @@ Console.CancelKeyPress.Add (fun _ ->
         terminateSystem () |> Async.RunSynchronously
         exit 0
     with
-        | _ ->
-            printfn "Failed to shut down system gracefully."
-            exit 1)
+    | _ ->
+        printfn "Failed to shut down system gracefully."
+        exit 1)
 
 AppDomain.CurrentDomain.DomainUnload.Add (fun _ ->
     printfn "Terminating actor system due to shutdown."
@@ -58,9 +55,9 @@ AppDomain.CurrentDomain.DomainUnload.Add (fun _ ->
         terminateSystem () |> Async.RunSynchronously
         exit 0
     with
-        | _ ->
-            printfn "Failed to shut down system gracefully."
-            exit 1)
+    | _ ->
+        printfn "Failed to shut down system gracefully."
+        exit 1)
 
 ///Completes when the actor system has fully terminated
 let waitForShutdown () =

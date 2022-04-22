@@ -27,11 +27,7 @@ let update publish (msg: Msg) (state: State) : State =
     match msg with
     | ReceiveMessage message ->
         { state with
-            Subscriptions =
-                state.Subscriptions.Add(
-                    message.Topic,
-                    state.Subscriptions.[message.Topic] @ [ message ]
-                ) }
+            Subscriptions = state.Subscriptions.Add(message.Topic, state.Subscriptions.[message.Topic] @ [ message ]) }
     | MessageSubmitted -> state
     | UsernameChanged user -> { state with User = user }
     | ChangeTopic topic -> { state with OpenTopic = Some topic }
@@ -49,19 +45,16 @@ let parseMsg subscribe unsubscribe (line: string) : Msg option =
     if line = null then
         None
     else if line.StartsWith("/user ") then
-        let user =
-            line.Substring(String.length "/user ")
+        let user = line.Substring(String.length "/user ")
 
         Some <| (UsernameChanged <| User user)
     else if line.StartsWith("/join ") then
-        let topic =
-            Topic <| line.Substring(String.length "/join ")
+        let topic = Topic <| line.Substring(String.length "/join ")
 
         subscribe topic
         Some <| ChangeTopic topic
     else if line.StartsWith("/leave ") then
-        let topic =
-            Topic <| line.Substring(String.length "/leave ")
+        let topic = Topic <| line.Substring(String.length "/leave ")
 
         unsubscribe topic
         None

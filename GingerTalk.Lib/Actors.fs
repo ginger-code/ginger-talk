@@ -54,8 +54,7 @@ let subscriptionsChanged state (mailbox: Actor<Subscription>) =
     loop ()
 
 let chatNodeActor (mailbox: Actor<obj>) =
-    let mdr =
-        DistributedPubSub.Get(mailbox.System).Mediator
+    let mdr = DistributedPubSub.Get(mailbox.System).Mediator
 
     (typed mdr) <! Put(untyped mailbox.Self)
 

@@ -35,12 +35,9 @@ module private Program =
                     "specify the interface on which to listen locally. Default is your local IP address"
                 | ExternalInterface _ ->
                     "specify the interface of domain name to which messages will be received. Default is your external IP address"
-                | SystemName _ ->
-                    "specify the name of the actor system to connect to. Default is 'ginger-talk'"
-                | SeedNodeDomain _ ->
-                    "specify the domain on which the seed node is running. Default is '3.143.109.10'"
-                | SeedNodePort _ ->
-                    "specify the port on which the seed node is listening. Default is 9110"
+                | SystemName _ -> "specify the name of the actor system to connect to. Default is 'ginger-talk'"
+                | SeedNodeDomain _ -> "specify the domain on which the seed node is running. Default is '3.143.109.10'"
+                | SeedNodePort _ -> "specify the port on which the seed node is listening. Default is 9110"
                 | UPnPForwarding ->
                     "use this flag to (try to) forward the required ports using UPnP/NAT. Default is disabled"
 
@@ -100,11 +97,13 @@ module private Program =
         }
 
     let programSettings =
-        let args =
-            Environment.GetCommandLineArgs() |> Array.skip 1
+        let args = Environment.GetCommandLineArgs() |> Array.skip 1
 
-        let parser =
-            ArgumentParser.Create<CliArguments>(programName = "ginger-talk.exe")
+        let parser = ArgumentParser.Create<CliArguments>(programName = "ginger-talk.exe")
+
+        if Array.contains "--help" args then
+            printfn $"{parser.PrintUsage()}"
+            exit 0
 
         (parser.Parse args).GetAllResults()
         |> List.fold applyArg (SettingsBuilder.Default())
@@ -175,9 +174,7 @@ akka {{
         | false -> create ()
         | true ->
             let deletePortMapping =
-                Networking.PortFowarding.forwardPort
-                    programSettings.InternalPort
-                    programSettings.ExternalPort
+                Networking.PortFowarding.forwardPort programSettings.InternalPort programSettings.ExternalPort
 
             let system = create ()
             system.RegisterOnTermination deletePortMapping

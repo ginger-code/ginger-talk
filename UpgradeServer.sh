@@ -1,6 +1,6 @@
-﻿#!/bin/bash
+﻿#!/usr/bin/env zsh
 
 docker-compose down
-git pull
+git reset origin/main --hard
 docker-compose build
 docker-compose up -d

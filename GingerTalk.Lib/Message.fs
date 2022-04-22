@@ -1,7 +1,6 @@
 ﻿module Message
 
 open System
-open Akkling.ActorRefs
 
 type User =
     | User of string
