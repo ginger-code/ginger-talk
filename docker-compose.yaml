@@ -1,0 +1,11 @@
+﻿version: '3.4'
+
+services:
+  ginger-talk:
+    build: .
+    ports:
+      - "9110:9110"
+    tty: true
+    stdin_open: true
+    environment:
+      - TERM=xterm-256color`

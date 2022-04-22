@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <AssemblyName>GingerTalk</AssemblyName>
+        <RootNamespace>GingerTalk</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GingerTalk.Lib\GingerTalk.Lib.fsproj" />
+        <PackageReference Include="Akka.Serialization.Hyperion" Version="1.4.37" />
+        <PackageReference Include="Akkling" Version="0.12.0" />
+        <PackageReference Include="Akkling.Cluster.Sharding" Version="0.12.0" />
+        <PackageReference Include="Akkling.DistributedData" Version="0.12.0" />
+        <PackageReference Include="Akkling.Hocon" Version="0.12.0" />
+        <PackageReference Include="Akkling.Persistence" Version="0.12.0" />
+    </ItemGroup>
+</Project>

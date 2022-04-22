@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="Networking\IpAddress.fs" />
+        <Compile Include="Networking\PortFowarding.fs" />
+        <Compile Include="Settings.fs" />
+        <Compile Include="ActorSystem.fs" />
+        <Compile Include="Message.fs" />
+        <Compile Include="ClientState.fs" />
+        <Compile Include="Actors.fs" />
+        <Compile Include="ActorRefs.fs" />
+        <Compile Include="Application.fs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Akka.Serialization.Hyperion" Version="1.4.37" />
+        <PackageReference Include="Akkling" Version="0.12.0" />
+        <PackageReference Include="Akkling.Cluster.Sharding" Version="0.12.0" />
+        <PackageReference Include="Akkling.DistributedData" Version="0.12.0" />
+        <PackageReference Include="Akkling.Hocon" Version="0.12.0" />
+        <PackageReference Include="Akkling.Persistence" Version="0.12.0" />
+        <PackageReference Include="Argu" Version="6.1.1" />
+        <PackageReference Include="FSharp.Json" Version="0.4.1" />
+        <PackageReference Include="FSharpx.Extras" Version="3.1.0" />
+        <PackageReference Include="Hyperion" Version="0.12.2" />
+        <PackageReference Include="Mono.Nat" Version="3.0.3" />
+        <PackageReference Include="Spectre.Console" Version="0.44.0" />
+    </ItemGroup>
+</Project>
